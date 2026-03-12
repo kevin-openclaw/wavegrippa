@@ -117,8 +117,20 @@ section{padding:40px 24px 40px;position:relative}
 .hero h1{font-family:'Uroob','Space Grotesk',system-ui,sans-serif;
   font-size:clamp(4.5rem,15vw,10rem);font-weight:400;letter-spacing:-.02em;
   line-height:1.1;margin-bottom:20px;
-  background:linear-gradient(135deg,#fff 0%,var(--accent3) 40%,var(--accent) 70%,var(--accent2) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  background:url('assets/wavegrippa-profile.jpg');
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  position:relative}
+/* Fallback for browsers without background-clip support */
+@supports not (-webkit-background-clip: text) {
+  .hero h1{
+    background:linear-gradient(135deg,#fff 0%,var(--accent3) 40%,var(--accent) 70%,var(--accent2) 100%);
+    color:transparent;
+    background-clip:text;
+  }
+}
 .hero-tagline{font-size:clamp(1rem,2.5vw,1.35rem);color:var(--text-dim);
   max-width:540px;margin:0 auto 40px;line-height:1.5}
 .hero-cta{display:inline-flex;align-items:center;gap:10px;
@@ -143,7 +155,11 @@ section{padding:40px 24px 40px;position:relative}
 @media(orientation:landscape) and (max-height:500px){
 .pacman-track{bottom:20px!important}
 .hero{min-height:100vh;padding-top:calc(var(--nav-h) + 10px);padding-bottom:60px}
-.hero h1{font-size:clamp(3rem,10vw,5rem);margin-bottom:10px}
+.hero h1{font-size:clamp(3rem,10vw,5rem);margin-bottom:10px;
+  background:url('assets/wavegrippa-profile.jpg');
+  background-size:cover;
+  background-position:center;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-bean{margin-bottom:8px;font-size:.8rem}
 .hero-tagline{margin-bottom:20px;font-size:.9rem}
 .hero-cta{padding:12px 28px;font-size:.9rem}
@@ -661,6 +677,12 @@ function setTheme(t){
   // Update embeds
   document.querySelectorAll('.appleEmbed').forEach(am=>{
     am.src=am.src.replace(/theme=(dark|light)/,'theme='+(t==='light'?'light':'dark'));
+  });
+  // Update Bandcamp embeds
+  const bgcol=t==='light'?'f5f5f7':'0a0a0f';
+  const linkcol=t==='light'?'6a1be0':'7b2fff';
+  document.querySelectorAll('#embedBandcamp iframe').forEach(bc=>{
+    bc.src=bc.src.replace(/bgcol=[0-9a-f]{6}/i,'bgcol='+bgcol).replace(/linkcol=[0-9a-f]{6}/i,'linkcol='+linkcol);
   });
 }
 themeToggle.addEventListener('click',()=>{
