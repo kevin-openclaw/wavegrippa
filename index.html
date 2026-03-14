@@ -853,11 +853,17 @@ function showRelease(which){
     
     // Load iframe only when visible, unload when hidden
     const iframe=iframes[k];
-    if(isActive&&iframe.dataset.src&&!iframe.src){
-      iframe.src=iframe.dataset.src;
-    }else if(!isActive&&iframe.src){
-      iframe.dataset.src=iframe.src;
-      iframe.src='';
+    if(isActive){
+      // Load from data-src if not already loaded
+      if(iframe.dataset.src&&!iframe.src.includes('bandcamp.com')){
+        iframe.src=iframe.dataset.src;
+      }
+    }else{
+      // Unload when hidden
+      if(iframe.src.includes('bandcamp.com')){
+        iframe.dataset.src=iframe.src;
+        iframe.src='';
+      }
     }
   });
 }
