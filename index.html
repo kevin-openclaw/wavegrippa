@@ -450,10 +450,10 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
       </div>
       <div id="embedBandcamp">
         <div style="border-radius:var(--radius);overflow:hidden;margin-bottom:12px">
-          <iframe src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+          <iframe id="bc-player-1" src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
         </div>
         <div style="border-radius:var(--radius);overflow:hidden">
-          <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+          <iframe id="bc-player-2" src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
         </div>
       </div>
       <div id="embedApple" style="display:none">
@@ -867,6 +867,37 @@ document.addEventListener('mousemove',e=>{
   document.querySelector('.orb-1').style.transform=`translate(${x}px,${y}px)`;
   document.querySelector('.orb-2').style.transform=`translate(${-x}px,${-y}px)`;
 });
+
+// Auto-pause Bandcamp players - only one can play at a time
+(function(){
+  const players = document.querySelectorAll('[id^="bc-player-"]');
+  const playerData = [];
+  
+  // Store original src for each player
+  players.forEach(iframe => {
+    playerData.push({
+      iframe: iframe,
+      src: iframe.src,
+      container: iframe.parentElement
+    });
+  });
+  
+  // Add click listener to each player container
+  playerData.forEach((current, index) => {
+    current.container.addEventListener('click', function() {
+      // Reload all OTHER players to stop them
+      playerData.forEach((other, otherIndex) => {
+        if (otherIndex !== index) {
+          // Reload iframe to stop playback
+          other.iframe.src = '';
+          setTimeout(() => {
+            other.iframe.src = other.src;
+          }, 50);
+        }
+      });
+    });
+  });
+})();
 </script>
 </body>
 </html>
