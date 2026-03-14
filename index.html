@@ -702,16 +702,27 @@ function setTheme(t){
   const bgcol=t==='light'?'f5f5f7':'0a0a0f';
   const linkcol=t==='light'?'6a1be0':'7b2fff';
   document.querySelectorAll('#embedBandcamp iframe').forEach(bc=>{
-    bc.src=bc.src.replace(/bgcol=[0-9a-f]{6}/i,'bgcol='+bgcol).replace(/linkcol=[0-9a-f]{6}/i,'linkcol='+linkcol);
+    // Update active src
+    if(bc.src&&bc.src.includes('bandcamp.com')){
+      bc.src=bc.src.replace(/bgcol=[0-9a-f]{6}/i,'bgcol='+bgcol).replace(/linkcol=[0-9a-f]{6}/i,'linkcol='+linkcol);
+    }
+    // Update data-src for lazy-loaded players
+    if(bc.dataset.src){
+      bc.dataset.src=bc.dataset.src.replace(/bgcol=[0-9a-f]{6}/i,'bgcol='+bgcol).replace(/linkcol=[0-9a-f]{6}/i,'linkcol='+linkcol);
+    }
   });
 }
 themeToggle.addEventListener('click',()=>{
   const current=document.documentElement.getAttribute('data-theme')||'dark';
   setTheme(current==='dark'?'light':'dark');
 });
-// Load saved theme (default: dark)
+// Load saved theme (default: dark, or system preference)
 const saved=localStorage.getItem('wg-theme');
-if(saved&&saved!=='dark')setTheme(saved);
+const prefersDark=!window.matchMedia('(prefers-color-scheme: light)').matches;
+const initialTheme=saved||(prefersDark?'dark':'light');
+if(initialTheme!=='dark')setTheme(initialTheme);
+// Always call setTheme on load to update Bandcamp embeds even in dark mode
+if(initialTheme==='dark')setTheme('dark');
 
 // Burger menu
 const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
