@@ -242,6 +242,14 @@ section{padding:40px 24px 40px;position:relative}
   transition:transform .2s,box-shadow .2s}
 .form button:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(123,47,255,.4)}
 
+/* TABS */
+.embed-tab,.release-tab{transition:all .2s}
+.embed-tab:hover:not(.active),.release-tab:hover:not(.active){
+  border-color:rgba(123,47,255,.4)!important;
+  color:var(--text-bright)!important;
+  background:rgba(255,255,255,.05)!important;
+}
+
 /* LINKS */
 .links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:700px;margin:0 auto}
 .link-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:32px 16px;
@@ -449,11 +457,23 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
         </div>
       </div>
       <div id="embedBandcamp">
-        <div style="border-radius:var(--radius);overflow:hidden;margin-bottom:12px">
-          <iframe id="bc-player-1" src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+        <div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px">
+          <button class="release-tab active" id="tabDayParty" onclick="showRelease('dayparty')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:var(--text-bright);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
+            Day Party
+          </button>
+          <button class="release-tab" id="tabControl" onclick="showRelease('control')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
+            control
+          </button>
         </div>
-        <div style="border-radius:var(--radius);overflow:hidden">
-          <iframe id="bc-player-2" src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+        <div id="releaseDayParty">
+          <div style="border-radius:var(--radius);overflow:hidden">
+            <iframe id="bc-player-1" src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+          </div>
+        </div>
+        <div id="releaseControl" style="display:none">
+          <div style="border-radius:var(--radius);overflow:hidden">
+            <iframe id="bc-player-2" src="" data-src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
+          </div>
         </div>
       </div>
       <div id="embedApple" style="display:none">
@@ -812,6 +832,34 @@ function showEmbed(which){
     tabs[k].style.background=k===which?'rgba(255,255,255,.1)':'transparent';
     tabs[k].style.color=k===which?'var(--text-bright)':'var(--text-dim)';
   });
+  // Show first release when Bandcamp tab is selected
+  if(which==='bandcamp'){
+    const dayPartyVisible=document.getElementById('releaseDayParty').style.display!=='none';
+    if(!dayPartyVisible)showRelease('dayparty');
+  }
+}
+
+function showRelease(which){
+  const panels={dayparty:document.getElementById('releaseDayParty'),control:document.getElementById('releaseControl')};
+  const tabs={dayparty:document.getElementById('tabDayParty'),control:document.getElementById('tabControl')};
+  const iframes={dayparty:document.getElementById('bc-player-1'),control:document.getElementById('bc-player-2')};
+  
+  Object.keys(panels).forEach(k=>{
+    const isActive=k===which;
+    panels[k].style.display=isActive?'block':'none';
+    tabs[k].classList.toggle('active',isActive);
+    tabs[k].style.background=isActive?'rgba(255,255,255,.1)':'transparent';
+    tabs[k].style.color=isActive?'var(--text-bright)':'var(--text-dim)';
+    
+    // Load iframe only when visible, unload when hidden
+    const iframe=iframes[k];
+    if(isActive&&iframe.dataset.src&&!iframe.src){
+      iframe.src=iframe.dataset.src;
+    }else if(!isActive&&iframe.src){
+      iframe.dataset.src=iframe.src;
+      iframe.src='';
+    }
+  });
 }
 
 // Theme tune player
@@ -867,37 +915,6 @@ document.addEventListener('mousemove',e=>{
   document.querySelector('.orb-1').style.transform=`translate(${x}px,${y}px)`;
   document.querySelector('.orb-2').style.transform=`translate(${-x}px,${-y}px)`;
 });
-
-// Auto-pause Bandcamp players - only one can play at a time
-(function(){
-  const players = document.querySelectorAll('[id^="bc-player-"]');
-  const playerData = [];
-  
-  // Store original src for each player
-  players.forEach(iframe => {
-    playerData.push({
-      iframe: iframe,
-      src: iframe.src,
-      container: iframe.parentElement
-    });
-  });
-  
-  // Add click listener to each player container
-  playerData.forEach((current, index) => {
-    current.container.addEventListener('click', function() {
-      // Reload all OTHER players to stop them
-      playerData.forEach((other, otherIndex) => {
-        if (otherIndex !== index) {
-          // Reload iframe to stop playback
-          other.iframe.src = '';
-          setTimeout(() => {
-            other.iframe.src = other.src;
-          }, 50);
-        }
-      });
-    });
-  });
-})();
 </script>
 </body>
 </html>
