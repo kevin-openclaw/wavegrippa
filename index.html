@@ -449,50 +449,23 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
     </div>
 
     <div style="margin-top:40px;max-width:600px;margin-left:auto;margin-right:auto">
-      <p style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:16px">Listen in full for free below.<br>Link to Bandcamp to purchase high quality audio.</p>
+      <p style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:16px">Listen in full for free below.<br>Purchase high quality audio on Bandcamp.</p>
       <div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px">
-        <button class="embed-tab" id="tabSpotify" onclick="showEmbed('spotify')" style="padding:10px 24px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--font);font-size:.85rem;font-weight:500;transition:all .2s">
-          <i class="fab fa-spotify" style="color:#1DB954"></i> Spotify
+        <button class="release-tab active" id="tabDayParty" onclick="showRelease('dayparty')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:var(--text-bright);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
+          Day Party
         </button>
-        <button class="embed-tab active" id="tabBandcamp" onclick="showEmbed('bandcamp')" style="padding:10px 24px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:var(--text-bright);cursor:pointer;font-family:var(--font);font-size:.85rem;font-weight:500;transition:all .2s">
-          <i class="fab fa-bandcamp" style="color:#629aa9"></i> Bandcamp
-        </button>
-        <button class="embed-tab" id="tabApple" onclick="showEmbed('apple')" style="padding:10px 24px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--font);font-size:.85rem;font-weight:500;transition:all .2s">
-          <i class="fab fa-apple" style="color:#fc3c44"></i> Apple Music
+        <button class="release-tab" id="tabControl" onclick="showRelease('control')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
+          control
         </button>
       </div>
-      <div id="embedSpotify" style="display:none">
-        <div style="text-align:center;padding:48px 20px">
-          <i class="fab fa-spotify" style="font-size:3rem;color:#1DB954;margin-bottom:16px;display:block"></i>
-          <p style="color:var(--text-dim);margin-bottom:20px;font-size:.95rem">Listen on Spotify</p>
-          <a href="https://open.spotify.com/artist/5OyCE9jxm6ePgRIM7H2Lp0" target="_blank" rel="noopener" style="display:inline-block;padding:12px 32px;border-radius:50px;background:#1DB954;color:#fff;text-decoration:none;font-family:var(--font);font-weight:600;font-size:.9rem;transition:opacity .2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Open in Spotify</a>
+      <div id="releaseDayParty">
+        <div style="border-radius:var(--radius);overflow:hidden">
+          <iframe id="bc-player-1" src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
         </div>
       </div>
-      <div id="embedBandcamp">
-        <div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px">
-          <button class="release-tab active" id="tabDayParty" onclick="showRelease('dayparty')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:var(--text-bright);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
-            Day Party
-          </button>
-          <button class="release-tab" id="tabControl" onclick="showRelease('control')" style="padding:8px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--text-dim);cursor:pointer;font-family:var(--font);font-size:.8rem;font-weight:500;transition:all .2s">
-            control
-          </button>
-        </div>
-        <div id="releaseDayParty">
-          <div style="border-radius:var(--radius);overflow:hidden">
-            <iframe id="bc-player-1" src="https://bandcamp.com/EmbeddedPlayer/album=973081953/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
-          </div>
-        </div>
-        <div id="releaseControl" style="display:none">
-          <div style="border-radius:var(--radius);overflow:hidden">
-            <iframe id="bc-player-2" src="" data-src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
-          </div>
-        </div>
-      </div>
-      <div id="embedApple" style="display:none">
-        <div style="text-align:center;padding:48px 20px">
-          <i class="fab fa-apple" style="font-size:3rem;color:#fc3c44;margin-bottom:16px;display:block"></i>
-          <p style="color:var(--text-dim);margin-bottom:20px;font-size:.95rem">Listen on Apple Music</p>
-          <a href="https://music.apple.com/gb/artist/wavegrippa/1575697636" target="_blank" rel="noopener" style="display:inline-block;padding:12px 32px;border-radius:50px;background:#fc3c44;color:#fff;text-decoration:none;font-family:var(--font);font-weight:600;font-size:.9rem;transition:opacity .2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Open in Apple Music</a>
+      <div id="releaseControl" style="display:none">
+        <div style="border-radius:var(--radius);overflow:hidden">
+          <iframe id="bc-player-2" src="" data-src="https://bandcamp.com/EmbeddedPlayer/album=3135869209/size=small/bgcol=0a0a0f/linkcol=7b2fff/tracklist=true/transparent=true/" width="100%" height="42" frameborder="0" allowfullscreen loading="lazy" style="border:0;border-radius:var(--radius)"></iframe>
         </div>
       </div>
     </div>
@@ -706,14 +679,10 @@ function setTheme(t){
   document.documentElement.setAttribute('data-theme',t);
   themeIcon.className=t==='light'?'fas fa-sun':'fas fa-moon';
   localStorage.setItem('wg-theme',t);
-  // Update embeds
-  document.querySelectorAll('.appleEmbed').forEach(am=>{
-    am.src=am.src.replace(/theme=(dark|light)/,'theme='+(t==='light'?'light':'dark'));
-  });
   // Update Bandcamp embeds
   const bgcol=t==='light'?'f5f5f7':'0a0a0f';
   const linkcol=t==='light'?'6a1be0':'7b2fff';
-  document.querySelectorAll('#embedBandcamp iframe').forEach(bc=>{
+  document.querySelectorAll('[id^="bc-player-"]').forEach(bc=>{
     // Update active src
     if(bc.src&&bc.src.includes('bandcamp.com')){
       bc.src=bc.src.replace(/bgcol=[0-9a-f]{6}/i,'bgcol='+bgcol).replace(/linkcol=[0-9a-f]{6}/i,'linkcol='+linkcol);
@@ -847,21 +816,6 @@ function toggleMarquee(){
   const obs=new IntersectionObserver(([e])=>{btn.style.display=e.isIntersecting?'flex':'none'},{threshold:0.1});
   obs.observe(hero);
 })();
-function showEmbed(which){
-  const panels={spotify:document.getElementById('embedSpotify'),bandcamp:document.getElementById('embedBandcamp'),apple:document.getElementById('embedApple')};
-  const tabs={spotify:document.getElementById('tabSpotify'),bandcamp:document.getElementById('tabBandcamp'),apple:document.getElementById('tabApple')};
-  Object.keys(panels).forEach(k=>{
-    panels[k].style.display=k===which?'block':'none';
-    tabs[k].style.background=k===which?'rgba(255,255,255,.1)':'transparent';
-    tabs[k].style.color=k===which?'var(--text-bright)':'var(--text-dim)';
-  });
-  // Show first release when Bandcamp tab is selected
-  if(which==='bandcamp'){
-    const dayPartyVisible=document.getElementById('releaseDayParty').style.display!=='none';
-    if(!dayPartyVisible)showRelease('dayparty');
-  }
-}
-
 function showRelease(which){
   const panels={dayparty:document.getElementById('releaseDayParty'),control:document.getElementById('releaseControl')};
   const tabs={dayparty:document.getElementById('tabDayParty'),control:document.getElementById('tabControl')};
