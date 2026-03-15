@@ -190,6 +190,14 @@ section{padding:40px 24px 40px;position:relative}
 
 /* MIX LIST */
 .mix-list{display:flex;flex-direction:column;gap:16px}
+.mix-tabs{display:flex;gap:12px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.mix-tab{font-family:var(--mono);font-size:.95rem;font-weight:600;padding:12px 24px;
+  background:transparent;border:none;color:var(--text-dim);cursor:pointer;
+  transition:all .2s;position:relative;border-bottom:2px solid transparent}
+.mix-tab:hover{color:var(--text-bright)}
+.mix-tab.active{color:var(--accent3);border-bottom-color:var(--accent3)}
+.mix-panel{display:none}
+.mix-panel.active{display:block}
 .mix-item{display:flex;align-items:center;gap:20px;padding:20px 24px;
   background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);
   transition:border-color .2s,transform .2s}
@@ -477,39 +485,56 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
   <div class="container">
     <div class="section-label">DJ Sets</div>
     <h2 class="section-title">in the mix</h2>
-    <div class="mix-list">
-      <div class="mix-item" style="flex-wrap:wrap">
-        <div class="mix-number">01</div>
-        <div class="mix-info">
-          <h3>Reggae & Dancehall Mix</h3>
-          <p>Reggae / Dancehall</p>
-        </div>
-        <div style="display:flex;gap:12px;margin-left:auto">
-          <button class="mix-play mix-embed-btn" data-target="embed-yt-mix1" title="YouTube"><i class="fab fa-youtube"></i></button>
-          <button class="mix-play mix-embed-btn" data-target="embed-mc-mix1" title="Mixcloud"><i class="fab fa-mixcloud"></i></button>
-          <button class="mix-play mix-embed-btn" data-target="embed-sc-mix1" title="SoundCloud"><i class="fab fa-soundcloud"></i></button>
-        </div>
-        <div id="embed-yt-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
-          <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:var(--radius);overflow:hidden">
-            <iframe src="" data-src="https://www.youtube.com/embed/na39VNyCW_Q" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
+    
+    <!-- Mix Tabs -->
+    <div class="mix-tabs">
+      <button class="mix-tab active" data-mix="mix1">01</button>
+      <button class="mix-tab" data-mix="mix2">02</button>
+    </div>
+    
+    <!-- Mix 01 Panel -->
+    <div class="mix-panel active" id="mix1">
+      <div class="mix-list">
+        <div class="mix-item" style="flex-wrap:wrap">
+          <div class="mix-number">01</div>
+          <div class="mix-info">
+            <h3>Reggae & Dancehall Mix</h3>
+            <p>Reggae / Dancehall</p>
+          </div>
+          <div style="display:flex;gap:12px;margin-left:auto">
+            <button class="mix-play mix-embed-btn" data-target="embed-yt-mix1" title="YouTube"><i class="fab fa-youtube"></i></button>
+            <button class="mix-play mix-embed-btn" data-target="embed-mc-mix1" title="Mixcloud"><i class="fab fa-mixcloud"></i></button>
+            <button class="mix-play mix-embed-btn" data-target="embed-sc-mix1" title="SoundCloud"><i class="fab fa-soundcloud"></i></button>
+          </div>
+          <div id="embed-yt-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
+            <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:var(--radius);overflow:hidden">
+              <iframe src="" data-src="https://www.youtube.com/embed/na39VNyCW_Q" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div id="embed-mc-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
+            <iframe src="" data-src="https://player-widget.mixcloud.com/widget/iframe/?feed=%2Fwavegrippa%2Freggae-dancehall-mix%2F&hide_cover=1&light=1" width="100%" height="120" frameborder="0" style="border-radius:var(--radius)" loading="lazy"></iframe>
+          </div>
+          <div id="embed-sc-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
+            <iframe src="" data-src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fwavegrippa%2Freggae-dancehall-mix&color=%237b2fff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false" width="100%" height="166" frameborder="0" scrolling="no" allow="autoplay" style="border-radius:var(--radius)" loading="lazy"></iframe>
           </div>
         </div>
-        <div id="embed-mc-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
-          <iframe src="" data-src="https://player-widget.mixcloud.com/widget/iframe/?feed=%2Fwavegrippa%2Freggae-dancehall-mix%2F&hide_cover=1&light=1" width="100%" height="120" frameborder="0" style="border-radius:var(--radius)" loading="lazy"></iframe>
-        </div>
-        <div id="embed-sc-mix1" class="mix-embed" style="display:none;width:100%;margin-top:12px">
-          <iframe src="" data-src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fwavegrippa%2Freggae-dancehall-mix&color=%237b2fff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false" width="100%" height="166" frameborder="0" scrolling="no" allow="autoplay" style="border-radius:var(--radius)" loading="lazy"></iframe>
-        </div>
-      </div>
-      <div class="mix-item" style="opacity:.45;pointer-events:none">
-        <div class="mix-number">02</div>
-        <div class="mix-info">
-          <h3>Coming Soon</h3>
-          <p>New mix in the works...</p>
-        </div>
-        <div class="mix-play"><i class="fas fa-lock" style="font-size:.85rem"></i></div>
       </div>
     </div>
+    
+    <!-- Mix 02 Panel -->
+    <div class="mix-panel" id="mix2">
+      <div class="mix-list">
+        <div class="mix-item" style="opacity:.45;pointer-events:none">
+          <div class="mix-number">02</div>
+          <div class="mix-info">
+            <h3>Coming Soon</h3>
+            <p>New mix in the works...</p>
+          </div>
+          <div class="mix-play"><i class="fas fa-lock" style="font-size:.85rem"></i></div>
+        </div>
+      </div>
+    </div>
+    
     <div style="margin-top:32px;text-align:center">
       <a href="https://www.youtube.com/@wavegrippa" target="_blank" rel="noopener" class="hero-cta" style="font-size:.9rem;padding:12px 28px">
         <i class="fab fa-youtube"></i> wavegrippa YouTube Channel
@@ -889,6 +914,26 @@ document.querySelectorAll('.mix-embed-btn').forEach(btn=>{
       const iframe=target.querySelector('iframe');
       if(iframe&&iframe.dataset.src)iframe.src=iframe.dataset.src;
     }
+  });
+});
+
+// Mix tab switching
+document.querySelectorAll('.mix-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const mixId=tab.dataset.mix;
+    // Update tab active state
+    document.querySelectorAll('.mix-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    // Show selected panel, hide others
+    document.querySelectorAll('.mix-panel').forEach(panel=>{
+      panel.classList.remove('active');
+      // Stop any playing audio when switching tabs
+      panel.querySelectorAll('iframe').forEach(iframe=>{
+        if(iframe.src)iframe.src='';
+      });
+      panel.querySelectorAll('.mix-embed').forEach(e=>e.style.display='none');
+    });
+    document.getElementById(mixId)?.classList.add('active');
   });
 });
 
