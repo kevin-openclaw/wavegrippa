@@ -72,10 +72,7 @@ img{max-width:100%;display:block}
 .nav-links{display:flex;gap:36px;list-style:none}
 .nav-links a{color:var(--text-dim);font-size:.95rem;font-weight:500;letter-spacing:.02em;
   position:relative;padding:4px 0;transition:color .2s}
-.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;
-  background:var(--grad);transition:width .3s}
 .nav-links a:hover,.nav-links a.active{color:var(--text-bright)}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%}
 
 /* HAMBURGER */
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;z-index:1001}
@@ -94,7 +91,6 @@ img{max-width:100%;display:block}
   .nav-links a{font-size:1.3rem;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text-dim)!important}
   .nav-links a:hover{color:#ffffff!important}
   .nav-links a.active{color:#ffffff!important}
-  .nav-links a::after{bottom:8px}
   .burger{display:flex;margin-left:16px}
 }
 
