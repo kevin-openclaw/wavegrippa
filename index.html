@@ -578,29 +578,34 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
 
 <!-- LICENSING -->
 <section id="licensing" style="background:var(--bg2)">
-<div id="contact"></div>
   <div class="container">
     <div class="section-label">Sync & Licensing</div>
     <h2 class="section-title">Use the Music</h2>
     <p class="section-subtitle">Want <span style="font-family:'Uroob',sans-serif;font-size:1.2em;color:var(--accent3);font-weight:500">wavegrippa</span> sounds in your film, advert, game, or interpretive dance piece? Let's have a chat.</p>
-    <div class="licensing-grid">
-      <div class="licensing-info">
-        <h3>What's On Offer</h3>
-        <ul>
-          <li>Sync licensing for film, TV & advertising</li>
-          <li>Custom production & remixes</li>
-          <li>DJ sets for events</li>
-          <li>Music for games & interactive media</li>
-          <li>Bespoke compositions to brief</li>
-        </ul>
-        <h3>Yes Please</h3>
-        <p>Original electronic music with personality. Every track made by a real human. Direct contact, no middlemen, no faff.</p>
-        <h3>The Legal Bit</h3>
-        <p style="font-size:.85rem">All music © wavegrippa. Licensing terms negotiated per project because one-size-fits-all is for socks, not music rights.</p>
-      </div>
-      <div>
-        <h3 style="margin-bottom:24px">Get In Touch</h3>
-        <form class="form" id="contactForm">
+    <div class="licensing-info">
+      <h3>What's On Offer</h3>
+      <ul>
+        <li>Sync licensing for film, TV & advertising</li>
+        <li>Custom production & remixes</li>
+        <li>DJ sets for events</li>
+        <li>Music for games & interactive media</li>
+        <li>Bespoke compositions to brief</li>
+      </ul>
+      <h3>Yes Please</h3>
+      <p>Original electronic music with personality. Every track made by a real human. Direct contact, no middlemen, no faff.</p>
+      <h3>The Legal Bit</h3>
+      <p style="font-size:.85rem">All music © wavegrippa. Licensing terms negotiated per project because one-size-fits-all is for socks, not music rights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Say Hello</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <div style="max-width:600px;margin:0 auto">
+      <form class="form" id="contactForm">
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="email" name="email" placeholder="Email Address" required>
           <select name="enquiry">
@@ -617,7 +622,6 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
           <button type="submit" id="cf-btn">Send It</button>
           <div id="cf-status" style="display:none;text-align:center;padding:20px;border-radius:var(--radius-sm);margin-top:8px"></div>
         </form>
-      </div>
     </div>
   </div>
 </section>
@@ -711,10 +715,6 @@ const obs=new IntersectionObserver(entries=>{
     if(e.target.id==='hero'){
       // Activate "Top" link for hero section
       navLinks.querySelector('a[href="#"]')?.classList.add('active');
-    }else if(e.target.id==='licensing'){
-      // Activate both "Licensing" and "Get in Touch" for licensing section
-      navLinks.querySelector('a[href="#licensing"]')?.classList.add('active');
-      navLinks.querySelector('a[href="#contact"]')?.classList.add('active');
     }else{
       // Activate corresponding section link
       const link=navLinks.querySelector(`a[href="#${e.target.id}"]`);
@@ -723,16 +723,6 @@ const obs=new IntersectionObserver(entries=>{
   }})
 },{threshold:0.2,rootMargin:'-80px 0px -50% 0px'});
 sections.forEach(s=>obs.observe(s));
-
-// Handle "Get in Touch" link click
-navLinks.querySelectorAll('a').forEach(a=>{
-  a.addEventListener('click',function(e){
-    if(this.getAttribute('href')==='#contact'){
-      navLinks.querySelectorAll('a').forEach(link=>link.classList.remove('active'));
-      this.classList.add('active');
-    }
-  });
-});
 
 // Contact form (AJAX)
 document.getElementById('contactForm').addEventListener('submit',async function(e){
