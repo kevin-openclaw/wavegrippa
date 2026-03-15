@@ -703,19 +703,21 @@ burger.addEventListener('click',()=>{burger.classList.toggle('open');navLinks.cl
 navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');navLinks.classList.remove('open')}));
 document.addEventListener('click',(e)=>{if(!navLinks.contains(e.target)&&!burger.contains(e.target)){burger.classList.remove('open');navLinks.classList.remove('open')}});
 
-// Active nav link on scroll
+// Active nav link on scroll - observe all sections including hero
 const sections=document.querySelectorAll('section[id]');
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){
     navLinks.querySelectorAll('a').forEach(a=>a.classList.remove('active'));
-    const link=navLinks.querySelector(`a[href="#${e.target.id}"]`);
-    if(link)link.classList.add('active');
-    // If we're at hero section, activate "Top" link
-    else if(e.target.id==='hero'){
+    if(e.target.id==='hero'){
+      // Activate "Top" link for hero section
       navLinks.querySelector('a[href="#"]')?.classList.add('active');
+    }else{
+      // Activate corresponding section link
+      const link=navLinks.querySelector(`a[href="#${e.target.id}"]`);
+      if(link)link.classList.add('active');
     }
   }})
-},{threshold:.3,rootMargin:'-64px 0px 0px 0px'});
+},{threshold:0.2,rootMargin:'-80px 0px -50% 0px'});
 sections.forEach(s=>obs.observe(s));
 
 // Handle "Get in Touch" link click
