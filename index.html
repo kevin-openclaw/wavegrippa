@@ -722,6 +722,16 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:.3,rootMargin:'-64px 0px 0px 0px'});
 sections.forEach(s=>obs.observe(s));
 
+// Handle "Get in Touch" link click
+navLinks.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',function(e){
+    if(this.getAttribute('href')==='#contact'){
+      navLinks.querySelectorAll('a').forEach(link=>link.classList.remove('active'));
+      this.classList.add('active');
+    }
+  });
+});
+
 // Contact form (AJAX)
 document.getElementById('contactForm').addEventListener('submit',async function(e){
   e.preventDefault();
