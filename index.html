@@ -134,6 +134,13 @@ section{padding:40px 24px 40px;position:relative}
     background-clip:text;
   }
 }
+/* Light mode: purple-pink gradient instead of image */
+[data-theme="light"] .hero h1{
+  background:linear-gradient(135deg,#7b2fff 0%,#ff2d95 100%)!important;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
 .hero-tagline{font-size:clamp(1rem,2.5vw,1.35rem);color:var(--text-dim);
   max-width:540px;margin:0 auto 40px;line-height:1.5}
 .hero-cta{display:inline-flex;align-items:center;gap:10px;
