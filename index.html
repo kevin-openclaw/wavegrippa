@@ -134,11 +134,12 @@ section{padding:40px 24px 40px;position:relative}
     background-clip:text;
   }
 }
-/* Light mode: solid purple text */
+/* Light mode: purple-to-pink gradient matching the CTA button */
 [data-theme="light"] .hero h1{
-  background:none!important;
-  color:#7b2fff!important;
-  -webkit-text-fill-color:#7b2fff!important;
+  background:linear-gradient(135deg,var(--accent),var(--accent2))!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  background-clip:text!important;
 }
 .hero-tagline{font-size:clamp(1rem,2.5vw,1.35rem);color:var(--text-dim);
   max-width:540px;margin:0 auto 40px;line-height:1.5}
