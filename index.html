@@ -714,6 +714,10 @@ const obs=new IntersectionObserver(entries=>{
     navLinks.querySelectorAll('a').forEach(a=>a.classList.remove('active'));
     const link=navLinks.querySelector(`a[href="#${e.target.id}"]`);
     if(link)link.classList.add('active');
+    // If we're at hero section, activate "Top" link
+    else if(e.target.id==='hero'){
+      navLinks.querySelector('a[href="#"]')?.classList.add('active');
+    }
   }})
 },{threshold:.3,rootMargin:'-64px 0px 0px 0px'});
 sections.forEach(s=>obs.observe(s));
