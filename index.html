@@ -711,6 +711,10 @@ const obs=new IntersectionObserver(entries=>{
     if(e.target.id==='hero'){
       // Activate "Top" link for hero section
       navLinks.querySelector('a[href="#"]')?.classList.add('active');
+    }else if(e.target.id==='licensing'){
+      // Activate both "Licensing" and "Get in Touch" for licensing section
+      navLinks.querySelector('a[href="#licensing"]')?.classList.add('active');
+      navLinks.querySelector('a[href="#contact"]')?.classList.add('active');
     }else{
       // Activate corresponding section link
       const link=navLinks.querySelector(`a[href="#${e.target.id}"]`);
