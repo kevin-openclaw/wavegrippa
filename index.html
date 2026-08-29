@@ -543,13 +543,24 @@ footer .mini-socials a:hover i{color:var(--text-bright);transform:translateY(-2p
     <!-- Mix 02 Panel -->
     <div class="mix-panel" id="mix2">
       <div class="mix-list">
-        <div class="mix-item" style="opacity:.45;pointer-events:none">
+        <div class="mix-item" style="flex-wrap:wrap">
           <div class="mix-number">02</div>
           <div class="mix-info">
-            <h3>Coming Soon</h3>
-            <p>New mix in the works...</p>
+            <h3>Modern Soul DJ Mix</h3>
+            <p>Modern Soul</p>
           </div>
-          <div class="mix-play"><i class="fas fa-lock" style="font-size:.85rem"></i></div>
+          <div style="display:flex;gap:12px;margin-left:auto">
+            <button class="mix-play mix-embed-btn" data-target="embed-yt-mix2" title="YouTube"><i class="fab fa-youtube"></i></button>
+            <button class="mix-play mix-embed-btn" data-target="embed-mc-mix2" title="Mixcloud"><i class="fab fa-mixcloud"></i></button>
+          </div>
+          <div id="embed-yt-mix2" class="mix-embed" style="display:none;width:100%;margin-top:12px">
+            <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:var(--radius);overflow:hidden">
+              <iframe src="" data-src="https://www.youtube.com/embed/A8pN9A38nO8" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div id="embed-mc-mix2" class="mix-embed" style="display:none;width:100%;margin-top:12px">
+            <iframe src="" data-src="https://player-widget.mixcloud.com/widget/iframe/?feed=%2Fwavegrippa%2Fmodern-soul-mix%2F&hide_cover=1&light=1" width="100%" height="120" frameborder="0" style="border-radius:var(--radius)" loading="lazy"></iframe>
+          </div>
         </div>
       </div>
     </div>
